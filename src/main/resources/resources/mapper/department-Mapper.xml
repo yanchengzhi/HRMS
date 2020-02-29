@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="depts">
+     <!-- 插入记录 -->
+     <insert id="addDepartment" parameterType="map">
+         insert into department(dep_id,dep_name,dep_leader)
+         values (#{depId},#{depName},#{depLeader})
+     </insert>
+     
+     <!-- 删除记录 -->
+     <delete id="removeDepartment" parameterType="int">
+         delete from department where dep_id = #{depId}
+     </delete>
+     
+     <!-- 修改记录 -->
+     <update id="modifyDepartment" parameterType="com.ycz.pojo.Department">
+         update department set dep_name = #{depName},dep_leader = #{depLeader}
+         where dep_id = #{depId}
+     </update>
+</mapper>
+
+
