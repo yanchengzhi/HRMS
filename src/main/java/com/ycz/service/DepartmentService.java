@@ -11,5 +11,7 @@ public interface DepartmentService {
 	public int removeDepartment(int id);
 	
 	public int modifyDepartment(Department dep);
+	
+	public Department findDepById(int id);
 
 }

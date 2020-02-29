@@ -2,14 +2,14 @@ package com.ycz.pojo;
 
 public class Department {
 	
-	private Integer depId;
+	private int depId;
 	private String depName;
 	private String depLeader;
 	
-	public Integer getDepId() {
+	public int getDepId() {
 		return depId;
 	}
-	public void setDepId(Integer depId) {
+	public void setDepId(int depId) {
 		this.depId = depId;
 	}
 	public String getDepName() {
@@ -29,8 +29,8 @@ public class Department {
 		
 	}
 	
-	public Department(Integer id,String depName,String depLeader) {
-		this.depId = id;
+	public Department(int depId,String depName,String depLeader) {
+		this.depId = depId;
 		this.depName = depName;
 		this.depLeader = depLeader;
 	}

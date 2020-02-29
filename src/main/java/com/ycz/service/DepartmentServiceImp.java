@@ -29,4 +29,9 @@ public class DepartmentServiceImp implements DepartmentService {
 		return dDao.modifyDepartment(dep);
 	}
 
+	@Override
+	public Department findDepById(int id) {
+		return dDao.findDepById(id);
+	}
+
 }

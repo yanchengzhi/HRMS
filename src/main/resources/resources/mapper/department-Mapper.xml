@@ -4,6 +4,8 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="depts">
+
+     
      <!-- 插入记录 -->
      <insert id="addDepartment" parameterType="map">
          insert into department(dep_id,dep_name,dep_leader)
@@ -20,6 +22,14 @@
          update department set dep_name = #{depName},dep_leader = #{depLeader}
          where dep_id = #{depId}
      </update>
+     
+     <!-- 按照ID查询部门 -->
+     <select id="findDepById" resultType="com.ycz.pojo.Department" parameterType="int">
+        <![CDATA[
+         select dep_id,dep_name,dep_leader from department where dep_id = #{depId}
+         ]]> 
+     </select>
+
 </mapper>
 
 

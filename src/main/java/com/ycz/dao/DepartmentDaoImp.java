@@ -20,7 +20,7 @@ public class DepartmentDaoImp implements DepartmentDao {
 		int res = 0;
 		try {
 			SqlSession ss = ssfb.getObject().openSession();
-			res = ss.insert("depts.addDepartment",map);
+			res = ss.insert("depts.addDepartment", map);
 			System.out.println("成功添加" + res + "条记录！");
 			ss.close();
 		} catch (Exception e) {
@@ -34,7 +34,7 @@ public class DepartmentDaoImp implements DepartmentDao {
 		int res = 0;
 		try {
 			SqlSession ss = ssfb.getObject().openSession();
-			res = ss.delete("depts.removeDepartment",id);
+			res = ss.delete("depts.removeDepartment", id);
 			System.out.println("成功删除" + res + "条记录！");
 			ss.close();
 		} catch (Exception e) {
@@ -48,13 +48,25 @@ public class DepartmentDaoImp implements DepartmentDao {
 		int res = 0;
 		try {
 			SqlSession ss = ssfb.getObject().openSession();
-			res = ss.update("depts.modifyDepartment",dep);
+			res = ss.update("depts.modifyDepartment", dep);
 			System.out.println("成功修改" + res + "条记录！");
 			ss.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return res;
+	}
+
+	@Override
+	public Department findDepById(int id) {
+		SqlSession ss = null;
+		try {
+			ss = ssfb.getObject().openSession();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		Department dep = ss.selectOne("depts.findDepById", id);
+		return dep;
 	}
 
 }

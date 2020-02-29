@@ -30,6 +30,8 @@
 	       <property name="dataSource" ref="dataSource"></property>
 	       <!-- 加载映射的sql文件 -->
 	       <property name="mapperLocations" value="classpath:resources/mapper/*.xml"></property>
+	       <!-- 加载这个配置文件要写在SqlSessionFactory的里面，否则驼峰自动转换不生效 -->
+	       <property name="configLocation" value="classpath:resources/MyBatis.xml"></property>
 	   </bean>
 	   
 	   <!-- 配置一个可以执行批量的sqlSession的Template模板 -->
@@ -38,6 +40,4 @@
 	       <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
 	       <constructor-arg name="executorType" value="BATCH"/>
 	   </bean>
-	   <!-- 加载MyBatis的配置文件 --> 
-	   <import resource="MyBatis.xml"/>
 </beans>
