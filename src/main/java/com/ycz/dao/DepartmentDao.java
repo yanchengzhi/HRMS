@@ -18,5 +18,7 @@ public interface DepartmentDao {
 	public int modifyDepartment(Department dep);//修改部门信息
 	
 	public Department findDepById(int id);//通过ID查找部门
+	
+	public int countDep();//统计一共多少条记录
 
 }

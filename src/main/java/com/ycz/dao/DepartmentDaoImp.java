@@ -1,5 +1,7 @@
 package com.ycz.dao;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -66,7 +68,20 @@ public class DepartmentDaoImp implements DepartmentDao {
 			e.printStackTrace();
 		}
 		Department dep = ss.selectOne("depts.findDepById", id);
+		ss.close();
 		return dep;
+	}
+
+	@Override
+	public int countDep() {
+		int res = 0;
+		try {
+			SqlSession ss = ssfb.getObject().openSession();
+			res = (Integer)ss.selectOne("depts.countDep");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return res;
 	}
 
 }

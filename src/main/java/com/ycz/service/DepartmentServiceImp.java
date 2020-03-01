@@ -34,4 +34,9 @@ public class DepartmentServiceImp implements DepartmentService {
 		return dDao.findDepById(id);
 	}
 
+	@Override
+	public int countDep() {
+		return dDao.countDep();
+	}
+
 }

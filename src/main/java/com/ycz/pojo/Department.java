@@ -1,11 +1,22 @@
 package com.ycz.pojo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Department {
 	
 	private int depId;
 	private String depName;
 	private String depLeader;
 	
+	private List<Employee> empList = new ArrayList<Employee>();//◊¢»Î“¿¿µ
+	
+	public List<Employee> getEmpList() {
+		return empList;
+	}
+	public void setEmpList(List<Employee> empList) {
+		this.empList = empList;
+	}
 	public int getDepId() {
 		return depId;
 	}

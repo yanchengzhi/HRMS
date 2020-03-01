@@ -29,6 +29,11 @@
          select dep_id,dep_name,dep_leader from department where dep_id = #{depId}
          ]]> 
      </select>
+     
+     <!-- 查询一共多少条记录 -->
+     <select id="countDep" resultType="int">
+        select count(dep_id) from department
+     </select>
 
 </mapper>
 

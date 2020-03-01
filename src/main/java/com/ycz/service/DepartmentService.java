@@ -13,5 +13,7 @@ public interface DepartmentService {
 	public int modifyDepartment(Department dep);
 	
 	public Department findDepById(int id);
+	
+	public int countDep();
 
 }

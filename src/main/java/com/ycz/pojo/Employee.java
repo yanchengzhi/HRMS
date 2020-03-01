@@ -7,20 +7,12 @@ public class Employee {
 	private Integer gender;
 	private String email;
 	private Integer depId;
-	
-	private Department department;//◊¢»Î“¿¿µ
-	
-	public Department getDepartment() {
-		return department;
-	}
-	public void setDepartment(Department department) {
-		this.department = department;
-	}
-	public Integer getId() {
+
+	public Integer getEmpId() {
 		return empId;
 	}
-	public void setId(Integer id) {
-		this.empId = id;
+	public void setEmpId(Integer empId) {
+		this.empId = empId;
 	}
 	public String getEmpName() {
 		return empName;
@@ -51,8 +43,8 @@ public class Employee {
 		
 	}
 	
-	public Employee(Integer id,String empName,Integer gender,String email,Integer depId) {
-		this.empId = id;
+	public Employee(Integer empId,String empName,Integer gender,String email,Integer depId) {
+		this.empId = empId;
 		this.empName = empName;
 		this.gender = gender;
 		this.email = email;

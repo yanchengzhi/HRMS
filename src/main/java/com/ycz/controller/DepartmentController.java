@@ -63,20 +63,37 @@ public class DepartmentController {
 		return "index";
 	}
 
+	/**
+	 * 通过ID查找记录行
+	 * 
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping("findDepById")
 	public ModelAndView findDepById(int id) {
 		Department dep = service.findDepById(id);
-		//注意，先进行为空判断
+		// 注意，先进行为空判断
 		if (dep != null) {
 			System.out.println("部门ID：" + dep.getDepId());
 			System.out.println("部门名称：" + dep.getDepName());
 			System.out.println("部门领导：" + dep.getDepLeader());
-		}else {
+		} else {
 			System.out.println("没有查到任何记录！");
 		}
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("dept",dep);
+		mav.addObject("dept", dep);
 		mav.setViewName("queryDep");
 		return mav;
+	}
+
+	/**
+	 * 统计表中总共的记录条数
+	 * @return
+	 */
+	@RequestMapping("countDep")
+	public String countDep() {
+		int res = service.countDep();
+		System.out.println("一共有" + res + "条记录！");
+		return "index";
 	}
 }

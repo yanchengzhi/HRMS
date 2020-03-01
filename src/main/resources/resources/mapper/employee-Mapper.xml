@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="emps">
+       
+      <!-- 查询总的记录条数 -->
+      <select id="countEmp" resultType="int">
+         select count(emp_id) from employee
+      </select>
+      
+      <!-- 添加记录 -->
+      <insert id="addEmp" parameterType="com.ycz.pojo.Employee">
+          insert into employee(emp_id,emp_name,gender,email,dep_id)
+          values(#{empId},#{empName},#{gender},#{email},#{depId})
+      </insert>
+      
+      <!-- 删除记录 -->
+      <delete id="removeEmp" parameterType="int">
+         delete from employee where emp_id = #{empId}
+      </delete>
+      
+      <!-- 修改记录 -->
+      <update id="modifyEmp" parameterType="com.ycz.pojo.Employee">
+         update employee set emp_name = #{empName},email = #{email},dep_id = #{depId}
+         where emp_id = #{empId}
+      </update>
+      
+      <!-- 定义一个可重用的sql块 -->
+      <sql id="colum">emp_id,emp_name,gender,email,dep_id</sql>
+      
+      <!-- 按员工姓名查询 -->
+      <select id="findEmpByName" resultType="com.ycz.pojo.Employee" parameterType="string">
+         select <include refid="colum"/> from employee where emp_name = #{empName}
+      </select>
+      
+      <!-- 实现分页查询，使用原始sql -->
+      <select id="findEmpPaged" resultType="com.ycz.pojo.Employee" parameterType="map" statementType="PREPARED">
+         select <include refid="colum"/> from employee limit #{start},#{pageSize}
+      </select>
+      
+      <!-- 分页查询，使用pagehelper插件，推荐用这种 -->
+      <select id="findEmpPaged2" resultType="com.ycz.pojo.Employee" statementType="PREPARED">
+         select <include refid="colum"/> from employee
+      </select>
+      
+      <!-- 按照员工ID查询 -->
+      <select id="findEmpById" resultType="com.ycz.pojo.Employee" parameterType="int" statementType="PREPARED">
+         select <include refid="colum"/> from employee where emp_id = #{empId}
+      </select>
+      
+      <!-- 按照性别查询并且分页 -->
+      <select id="findEmpBySex" resultType="com.ycz.pojo.Employee" parameterType="int" statementType="PREPARED">
+         select <include refid="colum"/> from employee where gender = #{gender}
+      </select>
+      
+      <!-- 按照部门查找员工 -->
+      <select id="findEmpByDep" resultType="com.ycz.pojo.Employee" parameterType="int" statementType="PREPARED">
+         select <include refid="colum"/> from employee where dep_id = #{depId}
+      </select>
+     
+      <!-- 按照指定条件查找记录 -->
+      <select id="findEmpByArgs" resultType="com.ycz.pojo.Employee" parameterType="map" statementType="PREPARED">
+         select <include refid="colum"/> from employee where gender = #{gender}
+         and email like #{email} and dep_id = #{depId}
+      </select>
+      
+      <!-- 连接查询 -->
+      <select id="findEmpDep" resultMap="depEmp" statementType="PREPARED">
+         select d.dep_id did,d.dep_name dname,d.dep_leader dleader,e.emp_id eid,e.emp_name ename,
+         e.gender egender from department d inner join employee e 
+         on d.dep_id = e.dep_id
+      </select>
+      
+      <!-- 多表连接查询要使用resultMap来映射 -->
+      <resultMap type="com.ycz.pojo.Department" id="depEmp" autoMapping="false">
+         <id column="did" property="depId" javaType="int" jdbcType="INTEGER"/>
+         <result column="dname" property="depName" javaType="string" jdbcType="VARCHAR"/>
+         <result column="dleader" property="depLeader" javaType="string" jdbcType="VARCHAR"/>
+         <!-- 一对一的复杂映射使用collection -->
+         <collection property="empList" ofType="com.ycz.pojo.Employee" autoMapping="false">
+            <id column="eid" property="empId" javaType="int" jdbcType="INTEGER"/>
+            <result column="ename" property="empName" javaType="string" jdbcType="VARCHAR"/>
+            <result column="egender" property="gender" javaType="int" jdbcType="INTEGER"/>
+         </collection>
+      </resultMap>
+</mapper>
+
+

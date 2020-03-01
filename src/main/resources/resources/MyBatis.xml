@@ -9,4 +9,11 @@
        <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
     
+    <!-- 配置pagehelper分页插件 -->
+    <plugins>
+       <plugin interceptor="com.github.pagehelper.PageHelper">
+           <property name="helperDialect" value="mysql"/>
+       </plugin>  
+    </plugins>
+    
 </configuration>
