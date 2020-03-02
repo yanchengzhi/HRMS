@@ -16,11 +16,16 @@
 	   
 	   <!-- 配置内部资源视图解析器 -->
 	   <bean id="irvr" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-	        <property name="prefix" value="/WEB-INF/jsp/"></property>
+	        <property name="prefix" value="/jsp/"></property>
 	        <property name="suffix" value=".jsp"></property>
 	        <property name="order" value="1"></property>
 	   </bean>
-        
+	   
+	   <!-- 静态资源放行 -->
+	   <mvc:resources location="/static/img/" mapping="/static/img/**"/>
+	   <mvc:resources location="/static/js/" mapping="/static/js/**"/>
+	   <!-- 放行静态资源后需要配置该项，否则拦截不到controller -->
+	   <mvc:annotation-driven/>
 </beans>
 
 

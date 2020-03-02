@@ -34,6 +34,11 @@
      <select id="countDep" resultType="int">
         select count(dep_id) from department
      </select>
+     
+     <!-- 查询所有部门 -->
+     <select id="getDepList" resultType="com.ycz.pojo.Department">
+        select dep_id,dep_name,dep_leader from department
+     </select>
 
 </mapper>
 

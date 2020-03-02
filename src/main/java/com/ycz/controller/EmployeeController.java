@@ -1,19 +1,14 @@
 package com.ycz.controller;
 
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.jsonPath;
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.ycz.pojo.Department;
 import com.ycz.pojo.Employee;
 import com.ycz.service.EmployeeService;
-import com.ycz.utils.JSONResult;
 
 @Controller
 @RequestMapping("/emp/")

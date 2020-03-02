@@ -84,4 +84,17 @@ public class DepartmentDaoImp implements DepartmentDao {
 		return res;
 	}
 
+	@Override
+	public List<Department> getDepList() {
+		List <Department> depList = new ArrayList<Department>();
+		try {
+			SqlSession ss = ssfb.getObject().openSession();
+			depList = ss.selectList("depts.getDepList");
+			ss.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return depList;
+	}
+
 }

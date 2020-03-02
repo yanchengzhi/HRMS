@@ -1,5 +1,6 @@
 package com.ycz.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import com.ycz.pojo.Department;
@@ -20,5 +21,7 @@ public interface DepartmentDao {
 	public Department findDepById(int id);//通过ID查找部门
 	
 	public int countDep();//统计一共多少条记录
+	
+	public List<Department> getDepList();//获取所有部门信息
 
 }

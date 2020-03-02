@@ -1,5 +1,6 @@
 package com.ycz.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.ycz.pojo.Department;
@@ -15,5 +16,7 @@ public interface DepartmentService {
 	public Department findDepById(int id);
 	
 	public int countDep();
+	
+	public List<Department> getDepList();
 
 }
