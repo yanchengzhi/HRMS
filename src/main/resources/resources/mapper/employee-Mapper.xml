@@ -23,7 +23,7 @@
       
       <!-- 修改记录 -->
       <update id="modifyEmp" parameterType="com.ycz.pojo.Employee">
-         update employee set emp_name = #{empName},email = #{email},dep_id = #{depId}
+         update employee set emp_name = #{empName},gender=#{gender},email = #{email},dep_id = #{depId}
          where emp_id = #{empId}
       </update>
       

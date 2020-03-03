@@ -9,11 +9,11 @@
 <body>
      <div class="hrms_container">
          <!-- 将头部导航条包含进来 -->
-         <%@ include file = "./commons/head.jsp" %>
+         <%@ include file = "commons/head.jsp" %>
          <!-- 中间部分 -->
          <div class="hrms_body" style="position: relative;top: -15px;"> 
          <!-- 将左侧边栏包含进来 -->
-         <%@ include file = "./commons/leftsidebar.jsp" %> 
+         <%@ include file = "commons/leftsidebar.jsp" %> 
 			<!--中心展示内容-->
 			<div class="hrms_main_ad col-sm-10">
 				<div class="panel panel-success">
@@ -29,19 +29,19 @@
 							</ol>
 							<div class="carousel-inner" role="listbox">
 								<div class="item active" style="text-align: center;">
-									<img src="../static/img/company1.jpg" alt="图片1" class="img-responsive center-block">
+									<img src="./static/img/company1.jpg" alt="图片1" class="img-responsive center-block">
 									<div class="carousel-caption">
 										<h3>漂亮大气的办公楼</h3>
 									</div>
 								</div>
 								<div class="item">
-									<img src="../static/img/company2.jpg" alt="图片2" class="img-responsive center-block">
+									<img src="./static/img/company2.jpg" alt="图片2" class="img-responsive center-block">
 									<div class="carousel-caption">
 										<h3>休闲的放松场所</h3>
 									</div>
 								</div>
 								<div class="item">
-									<img src="../static/img/company3.jpg" alt="图片3" class="img-responsive center-block">
+									<img src="./static/img/company3.jpg" alt="图片3" class="img-responsive center-block">
 									<div class="carousel-caption">
 										<h3>舒适的办公环境</h3>
 									</div>

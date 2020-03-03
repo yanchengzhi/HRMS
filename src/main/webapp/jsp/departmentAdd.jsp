@@ -53,7 +53,7 @@
     //1、点击部门新增按钮，弹出模态框；
     $(".dept_add_btn").click(function () {
         $('.dept-add-modal').modal({
-            backdrop:static,
+            backdrop:"static",
             keyboard:true
         });
     });
@@ -72,6 +72,7 @@
 	    	   if(result.code==100){
 	    		   alert("添加成功！");
 	    		   $('.dept-add-modal').modal("hide");
+	    		   window.location.href = "/SSM_HRMS/dept/getDepList";
 	    	   }else{
 	    		   alert(result.extendInfo.add_dept_error);
 	    	   }

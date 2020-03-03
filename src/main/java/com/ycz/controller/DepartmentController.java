@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -130,5 +129,19 @@ public class DepartmentController {
 		mav.addObject("depList", depList);
 		mav.setViewName("departmentPage");
 		return mav;
+	}
+
+	/**
+	 * 获取所有部门名称
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value="getDepName",method=RequestMethod.GET)
+	public JsonMsg getDepName() {
+		List<Department> depList = service.getDepList();
+		if (depList == null) {
+			return JsonMsg.fail();
+		}
+		return JsonMsg.success().addInfo("depList", depList);
 	}
 }

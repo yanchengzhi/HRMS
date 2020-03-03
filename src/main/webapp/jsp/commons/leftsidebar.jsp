@@ -16,7 +16,7 @@
 				<ul class="nav nav-pills nav-stacked" id="collapse_emp">
 					<li role="presentation"><a href="#" class="emp_info">员工信息</a></li>
 					<li role="presentation"><a href="#" role="button" class="emp_add_btn" 
-					data-toggle="modal" data-target=".emp-add-modal">员工新增</a></li>
+					data-toggle="modal">员工新增</a></li>
 					<li role="presentation"><a href="#" class="emp_clearall_btn">员工清零</a></li>
 				</ul>
 			</li>
@@ -28,8 +28,8 @@
 				</a>
 				<ul class="nav nav-pills nav-stacked" id="collapse_dept">
 					<li role="presentation"><a href="#" class="dept_info">部门信息</a></li>
-					<li role="presentation"><a href="#" class="dept_add_btn" 
-					data-toggle="modal" data-target=".dept-add-modal">部门新增</a></li>
+					<li role="presentation"><a href="#" role="button" class="dept_add_btn" 
+					data-toggle="modal">部门新增</a></li>
 					<li role="presentation"><a href="#" class="dept_clearall_btn">部门清零</a></li>	
 				</ul>
 			</li>
@@ -40,6 +40,10 @@
 	   //跳转到部门页面
 	   $(".dept_info").click(function(){
 		   $(this).attr("href","/SSM_HRMS/dept/getDepList");
+	   });
+	   //跳转到员工页面
+	   $(".emp_info").click(function(){
+		   $(this).attr("href","/SSM_HRMS/emp/findEmpPaged2?page=1"); 
 	   });
 	    //员工清零这个功能暂未实现
 	    $(".emp_clearall_btn").click(function () {

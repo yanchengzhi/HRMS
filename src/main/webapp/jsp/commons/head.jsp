@@ -82,7 +82,7 @@
 <script type="text/javascript">
    //主页面
    $("#company_logo").click(function(){
-	   $(this).attr("href","../jsp/main.jsp");
+	   $(this).attr("href","/SSM_HRMS/jsp/main.jsp");
    });
    //账号退出
    $(".hrms_logout").click(function(){

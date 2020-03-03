@@ -23,7 +23,6 @@
 	   
 	   <!-- 静态资源放行 -->
 	   <mvc:resources location="/static/img/" mapping="/static/img/**"/>
-	   <mvc:resources location="/static/js/" mapping="/static/js/**"/>
 	   <!-- 放行静态资源后需要配置该项，否则拦截不到controller -->
 	   <mvc:annotation-driven/>
 </beans>

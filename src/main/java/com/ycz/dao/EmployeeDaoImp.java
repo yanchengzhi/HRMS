@@ -39,6 +39,7 @@ public class EmployeeDaoImp implements EmployeeDao {
 		try {
 			SqlSession ss = ssfb.getObject().openSession();
 			res = ss.insert("emps.addEmp", emp);
+			ss.commit();
 			ss.close();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -52,6 +53,7 @@ public class EmployeeDaoImp implements EmployeeDao {
 		try {
 			SqlSession ss = ssfb.getObject().openSession();
 			res = ss.delete("emps.removeEmp", id);
+			ss.commit();
 			ss.close();
 		} catch (Exception e) {
 			e.printStackTrace();

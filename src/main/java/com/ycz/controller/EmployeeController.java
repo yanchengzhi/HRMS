@@ -3,14 +3,17 @@ package com.ycz.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.ycz.pojo.Department;
 import com.ycz.pojo.Employee;
 import com.ycz.service.EmployeeService;
+import com.ycz.utils.JsonMsg;
 
-@Controller
+@RestController
 @RequestMapping("/emp/")
 public class EmployeeController {
 
@@ -23,10 +26,10 @@ public class EmployeeController {
 	 * @return
 	 */
 	@RequestMapping("countEmp")
-	public String countEmp() {
+	public int countEmp() {
 		int res = service.countEmp();
 		System.out.println("一共有" + res + "名员工！");
-		return "index";
+		return res;
 	}
 
 	/**
@@ -34,12 +37,20 @@ public class EmployeeController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping("addEmp")
-	public String addEmp() {
-		Employee emp = new Employee(2020078, "秦玉安", 1, "235235@163.com", 1005);
+	@RequestMapping(value = "addEmp", method = RequestMethod.GET)
+	public JsonMsg addEmp(int id, String name, int gender, String email, int depId) {
+		Employee emp = new Employee();
+		emp.setEmpId(id);
+		emp.setEmpName(name);
+		emp.setGender(gender);
+		emp.setEmail(email);
+		emp.setDepId(depId);
 		int res = service.addEmp(emp);
-		System.out.println("成功添加" + res + "条记录");
-		return "index";
+		if (res == 1) {
+			return JsonMsg.success();
+		} else {
+			return JsonMsg.fail();
+		}
 	}
 
 	/**
@@ -48,11 +59,14 @@ public class EmployeeController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping("removeEmp")
-	public String removeEmp(int id) {
+	@RequestMapping(value = "removeEmp", method = RequestMethod.GET)
+	public JsonMsg removeEmp(int id) {
 		int res = service.removeEmp(id);
-		System.out.println("成功删除了" + res + "条记录！");
-		return "index";
+		if (res == 1) {
+			return JsonMsg.success();
+		} else {
+			return JsonMsg.fail().addInfo("emp_del_error", "员工删除异常");
+		}
 	}
 
 	/**
@@ -60,30 +74,41 @@ public class EmployeeController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping("modifyEmp")
-	public String modifyEmp() {
+	@RequestMapping(value="modifyEmp",method=RequestMethod.GET)
+	public JsonMsg modifyEmp(int id,String name,int gender,String email,int depId) {
 		Employee emp = new Employee();
-		emp.setEmpId(2020002);
-		emp.setEmpName("何立立小女神");
-		emp.setEmail("15432132@qq.com");
-		emp.setDepId(1003);
+		emp.setEmpId(id);
+		emp.setEmpName(name);
+		emp.setGender(gender);
+		emp.setEmail(email);
+		emp.setDepId(depId);
 		int res = service.modify(emp);
-		System.out.println("成功修改了" + res + "条记录！");
-		return "index";
+		if(res==1) {
+			return JsonMsg.success();
+		}else {
+			return JsonMsg.fail();
+		}
 	}
 
 	/**
-	 * 按姓名查找记录
+	 * 按姓名查找是否有重复记录
 	 * 
 	 * @param name
 	 * @return
 	 */
-	@RequestMapping("findEmpByName")
-	public String findEmpByName(String name) {
+	@RequestMapping(value = "checkEmpExist", method = RequestMethod.GET)
+	public JsonMsg checkEmpExist(String name) {
+		// 对输入的姓名和邮箱格式进行验证
+		String regName = "(^[a-zA-Z0-9_-]{3,16}$)|(^[\\u2E80-\\u9FFF]{2,5})";
+		if (!name.matches(regName)) {// 验证姓名是否匹配
+			return JsonMsg.fail().addInfo("name_reg_error", "输入姓名为2-5位中文或6-16位英文和数字组合");
+		}
 		Employee emp = service.findEmpByName(name);
-		System.out.println("查询结果如下：");
-		System.out.println(emp.toString());
-		return "index";
+		if (emp != null) {
+			return JsonMsg.fail().addInfo("name_reg_error", "用户名重复！");
+		} else {
+			return JsonMsg.success();
+		}
 	}
 
 	/**
@@ -112,16 +137,33 @@ public class EmployeeController {
 	 * @param pageSize
 	 * @return
 	 */
-	@RequestMapping("findEmpPaged2")
-	public String findEmpPaged2(int page, int pageSize) {
+	@RequestMapping(value = "findEmpPaged2", method = RequestMethod.GET)
+	public ModelAndView findEmpPaged2(Integer page) {
+		int pageSize = 10;
+		ModelAndView mav = new ModelAndView();
 		List<Employee> empList = service.findEmpPaged2(page, pageSize);
-		System.out.println("每页" + pageSize + "条记录，第" + page + "页记录如下：");
-		System.out.println("------------------------------------------");
-		for (Employee e : empList) {
-			System.out.println(e.getEmpId() + "\t" + e.getEmpName() + "\t" + e.getGender() + "\t" + e.getEmail() + "\t"
-					+ e.getDepId());
-		}
-		return "index";
+		// 获取总的记录数
+		int totalItems = service.countEmp();
+		// 统计总页数
+		int pageSum = (totalItems % pageSize == 0) ? (totalItems / pageSize) : (int) (totalItems / pageSize) + 1;
+		mav.addObject("page", page);
+		mav.addObject("empList", empList);
+		mav.addObject("totalItems", totalItems);
+		mav.addObject("pageSum", pageSum);
+		mav.setViewName("employeePage");
+		return mav;
+	}
+
+	/**
+	 * 添加或删除新记录后，重新查询页数
+	 * 因为临界值存在页数增加或减少的情况
+	 * @return
+	 */
+	@RequestMapping(value="getPageSum",method=RequestMethod.GET)
+	public JsonMsg getPageSum() {
+		int totalItems = service.countEmp();
+		int pageSum = (totalItems % 10 == 0) ? (totalItems / 10) : (totalItems / 10) + 1;
+	    return JsonMsg.success().addInfo("pageSum", pageSum);
 	}
 
 	/**
@@ -130,12 +172,14 @@ public class EmployeeController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping("findEmpById")
-	public String findEmpById(int id) {
+	@RequestMapping(value="findEmpById",method=RequestMethod.GET)
+	public JsonMsg findEmpById(int id) {
 		Employee emp = service.findEmpById(id);
-		System.out.println("查询结果如下：");
-		System.out.println(emp.toString());
-		return "index";
+        if(emp!=null) {
+        	return JsonMsg.success().addInfo("emp", emp);
+        }else {
+        	return JsonMsg.fail();
+        }
 	}
 
 	/**
@@ -235,8 +279,8 @@ public class EmployeeController {
 		List<Department> depList = service.findEmpDep();
 		for (Department d : depList) {
 			List<Employee> empList = d.getEmpList();
-			System.out.println(d.getDepName() + "编号为" + d.getDepId() 
-			+ "，由" + d.getDepLeader() + "领导，一共有" + empList.size() + "名员工，所有人信息如下：");
+			System.out.println(d.getDepName() + "编号为" + d.getDepId() + "，由" + d.getDepLeader() + "领导，一共有"
+					+ empList.size() + "名员工，所有人信息如下：");
 			for (Employee e : empList) {
 				System.out.println(e.getEmpId() + "\t" + e.getEmpName() + "\t" + e.getGender());
 			}
