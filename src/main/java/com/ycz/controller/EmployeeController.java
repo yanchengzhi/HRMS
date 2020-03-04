@@ -208,7 +208,7 @@ public class EmployeeController {
 						+ "\t" + e.getDepId());
 			}
 		}
-		return "index";
+		return "main";
 	}
 
 	/**
@@ -247,7 +247,7 @@ public class EmployeeController {
 			System.out.println(e.getEmpId() + "\t" + e.getEmpName() + "\t" + e.getGender() + "\t" + e.getEmail() + "\t"
 					+ e.getDepId());
 		}
-		return "index";
+		return "main";
 	}
 
 	/**
@@ -266,7 +266,7 @@ public class EmployeeController {
 			System.out.println(e.getEmpId() + "\t" + e.getEmpName() + "\t" + e.getGender() + "\t" + e.getEmail() + "\t"
 					+ e.getDepId());
 		}
-		return "index";
+		return "main";
 	}
 
 	/**
@@ -286,7 +286,7 @@ public class EmployeeController {
 			}
 			System.out.println("------------------------------------------");
 		}
-		return "index";
+		return "main";
 	}
 
 }

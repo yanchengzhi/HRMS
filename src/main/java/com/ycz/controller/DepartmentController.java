@@ -88,9 +88,6 @@ public class DepartmentController {
 		Department dep = service.findDepById(id);
 		// 注意，先进行为空判断
 		if (dep != null) {
-			System.out.println("部门ID：" + dep.getDepId());
-			System.out.println("部门名称：" + dep.getDepName());
-			System.out.println("部门领导：" + dep.getDepLeader());
 			return JsonMsg.success().addInfo("dep", dep);
 		} else {
 			System.out.println("没有查到任何记录！");
