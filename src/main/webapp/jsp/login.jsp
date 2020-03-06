@@ -25,7 +25,7 @@
     					<h3 class="panel-title" style="text-align: center;">登录</h3>
     				</div>
     				<div class="panel-body">
-    					<form action="/SSM_HRMS/hrms/doLogin.action" role="form" id="login_form" method="POST">
+    					<form role="form" id="login_form" method="POST">
     						<fieldset>
     							<div class="form-group">
     								<input type="text" class="form-control" name="username" id="username" placeholder="用户名：admin" autofocus="">
