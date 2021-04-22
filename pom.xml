@@ -58,7 +58,7 @@ http://maven.apache.org/maven-v4_0_0.xsd">
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis</artifactId>
-			<version>3.4.1</version>
+			<version>3.5.6</version>
 		</dependency>
 
 		<!-- pagehelper分页插件依赖包 -->
